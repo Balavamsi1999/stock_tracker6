@@ -1,0 +1,20 @@
+<div class="results-block1">
+  <%= render 'layouts/alert-messages' %>
+</div>
+
+
+<% if @stock%>
+  <div class="card card-reader results-block">
+   <strong> Symbol: </strong> <%= @stock.ticker%>
+   <strong> Name:  </strong> <%= @stock.name%>
+   <strong> Last price: </strong> <%= @stock.last_price%>
+  </div>
+ <% if !current_user.stocks.where(ticker: params[:stock]).exists? %>
+   <%= link_to 'Add to My Portfolio', user_stocks_path(user: current_user,ticker: @stock.ticker),
+               class:"  btn btn-success",method: :post %>
+  <% else %>
+   <span class="badge badge-secondary" >
+    you are already tracking  this stock
+   </span>
+  <%end %>
+<% end %>

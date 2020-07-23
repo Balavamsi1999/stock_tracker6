@@ -1,0 +1,54 @@
+
+<h1 id="margin-top"> My Friends </h1>
+
+
+<div class='search-area'>
+  <h3> Search Friends</h3>
+  
+  <%= form_tag search_friend_path ,remote:true, method: :get do %>
+    <div class="row">
+      <div class="col-sm-9 no-right-padding">
+        <%= text_field_tag :friend , params[:friend] , placeholder: "Enter you\'r friend name", autofocus: true, class: "form-control form-control-lg" %>
+      </div>
+
+      <div class="col-sm-3 no-left-padding">
+        <button class="btn btn-outline-success btn-rounded btn-sm my-0  form-control-lg " type="submit">Search</button>
+        </div>
+
+    </div>
+  <% end%>
+</div>
+
+<div id="friend-results">
+</div> 
+
+
+
+<div class='row margin_top3'>
+    <div class='col-9'>
+    <table class="table table-striped table-hover ">
+      <thead>
+        <tr>
+          <th scope="col">Email</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Price</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%  @my_friends.each do |friend| %>
+          <tr>
+            <th scope="row"><%= friend.email %></th>
+            <td><%= friend.first_name %></td>
+            <td><%= friend.last_name %></td>
+            <td><%= link_to 'View Profile', user_path(friend),
+                                          class: 'btn btn-sm btn-success' %>
+            <td>
+              <%= link_to 'Stop following',friendship_path(friend),class:"btn btn-sm btn-danger",method: :delete %>
+            </td>
+          </tr>
+        <% end %> 
+      </tbody>
+    </table>
+  </div>
+</div>
